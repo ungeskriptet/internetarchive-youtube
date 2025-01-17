@@ -389,8 +389,9 @@ class ArchiveYouTube:
                 'logtostderr': True
 
             })
-            if os.getenv('COOKIES'):
-                ydl_opts['cookiefile'] = os.getenv('COOKIES')
+
+        if os.getenv('COOKIES'):
+            ydl_opts.update({'cookiefile': os.getenv('COOKIES')})
 
         if self.use_aria2c:
             ydl_opts.update({'external_downloader': 'aria2c'})
