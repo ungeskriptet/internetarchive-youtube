@@ -103,7 +103,12 @@ class ArchiveYouTube:
 
     @staticmethod
     def get_video_extension(video_url):
-        with yt_dlp.YoutubeDL({'quiet': True}) as ydl:
+        ydl_opts = {'quit': True}
+
+        if os.getenv('COOKIES'):
+            ydl_opts['cookiefile'] = os.getenv('COOKIES')
+
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             try:
                 info = ydl.extract_info(video_url, download=False)
             except Exception as e:
